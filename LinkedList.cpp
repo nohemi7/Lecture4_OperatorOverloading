@@ -7,6 +7,17 @@ using namespace std;
 
 LinkedList::LinkedList() : head(nullptr), tail(0) {}
 
+LinkedList::~LinkedList() {
+    node *temp = head; 
+    while(temp != nullptr) {
+        //itterate through the list and delete the head
+        temp = temp->next; // make the temp point to new head as we delete first node
+        delete head; 
+        head = temp; // itterate the head to be
+    }
+
+}
+
 LinkedList::LinkedList(const LinkedList &other) : head(other.head), tail(other.tail) {
      // default behavior is the above
 
@@ -18,12 +29,19 @@ LinkedList::LinkedList(const LinkedList &other) : head(other.head), tail(other.t
     // iterate through the linked list you want to copy.
     // append each value you see to the list you're building
     // in this constructor.
+    node *temp = other.head;
+    while(temp != nullptr)
+    {
+        this->append(temp->info);
+        temp = temp->next;
+    }
 }
 
 LinkedList& LinkedList::operator=(const LinkedList &other) {
     // default behavior is the below
     head = other.head;
     tail = other.tail;
+
 
     return *this;
     // this isn't good! We should copy any of the elements
@@ -68,12 +86,12 @@ bool LinkedList::operator==(const LinkedList &other) const {
         // keep going; advance both pointers
         n1 = n1->next;
         n2 = n2->next;
-
+    }
         // once we got here, at least one of n1 and n2 is equal to nullptr
         // if both are nullptr, then the lists were the same
         if(n1 == nullptr && n2 == nullptr) return true;
         else return false; //one of the lists wasn;t empty and the other was
-    }
+    
 }
 vector<int> LinkedList::vectorize() const {
     vector<int> ret;

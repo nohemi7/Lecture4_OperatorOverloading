@@ -11,6 +11,7 @@ class LinkedList
 {
 public:
     LinkedList(); // constructor
+    ~LinkedList();
     LinkedList(const LinkedList &other); // copy constructor
 
     void append(int x); // adds a new node to the list with info=x
